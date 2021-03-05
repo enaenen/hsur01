@@ -14,7 +14,7 @@
 
 int	g_size;
 
-typedef	enum
+typedef enum
 {
 	true = 1,
 	false = 0
@@ -75,7 +75,7 @@ t_bool	input_validation(char *str, int nbr_count)
 	return (true);
 }
 
-int	**create_grid()
+int	**create_grid(void)
 {
 	int	row;
 	int	col;
