@@ -6,7 +6,7 @@
 /*   By: wchae <wchae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 19:51:24 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/05 19:55:29 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/05 20:09:47 by wchae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 int	g_size;
 
-typedef enum
+typedef	enum
 {
 	true = 1,
 	false = 0
@@ -87,11 +87,11 @@ t_bool	input_validation(char *str, int nbr_count)
 	return (true);
 }
 
-int		**create_grid()
+int	**create_grid()
 {
-	int row;
+	int	row;
 	int	col;
-	int **grid;
+	int	**grid;
 	
 	grid = (int **)malloc((g_size + 1) * sizeof(int *));
 	row = 0;
@@ -152,7 +152,7 @@ t_bool	validate_col_row(int *col_row[4])
 	return (true);
 }
 
-int		*is_empty(int **grid)
+int	*is_empty(int **grid)
 {
 	int row;
 	int col;
@@ -206,7 +206,7 @@ t_bool	has_duplicate(int **grid, int *axis, int guess)
 	return (false);
 }
 
-t_bool		find_zero(int *arr)
+t_bool	find_zero(int *arr)
 {
 	int index;
 	
@@ -220,7 +220,7 @@ t_bool		find_zero(int *arr)
 	return (false);
 }
 
-int			*setarray(int **grid, int *axis)
+int	*setarray(int **grid, int *axis)
 {
 	int		*array;
 	int 	index;
@@ -235,7 +235,7 @@ int			*setarray(int **grid, int *axis)
 	return (array);
 }
 
-t_bool		check_row(int **grid, int *axis, int *col_row[4], int direction)
+t_bool	check_row(int **grid, int *axis, int *col_row[4], int direction)
 {
 	int column;
 	int seen;
@@ -263,7 +263,7 @@ t_bool		check_row(int **grid, int *axis, int *col_row[4], int direction)
 		return (seen == col_row[LEFT][axis[0]]);
 }
 
-t_bool		check_col(int **grid, int *axis, int *col_row[4], int direction)
+t_bool	check_col(int **grid, int *axis, int *col_row[4], int direction)
 {
 	int row;
 	int seen;
@@ -291,7 +291,7 @@ t_bool		check_col(int **grid, int *axis, int *col_row[4], int direction)
 		return (seen == col_row[UP][axis[1]]);
 }
 
-t_bool		is_valid(int **grid, int *axis, int *col_row[4])
+t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 {
 	int		*colarray;
 	t_bool	row_has_zero;
@@ -318,7 +318,7 @@ t_bool		is_valid(int **grid, int *axis, int *col_row[4])
 	&& check_col(grid, axis, col_row, D_T_U));
 }
 
-t_bool		test(int **grid, int *axis, int guess, int *col_row[4])
+t_bool	test(int **grid, int *axis, int guess, int *col_row[4])
 {
 	t_bool test_duplicate;
 	t_bool test_valid;
@@ -355,7 +355,7 @@ t_bool	backtracking(int **grid, int *col_row[4])
 	return (false);
 }
 
-void	print_grid(int **grid)
+void	print_grid(int	**grid)
 {
 	int	row;
 	int	col;
@@ -371,7 +371,7 @@ void	print_grid(int **grid)
 				ft_putstr(" ");
 			col++;
 		}
-		if (row != g_size - 1)
+		if (row != g_size)
 			ft_putstr("\n");
 		row++;
 	}
@@ -394,9 +394,9 @@ t_bool	solve(char *str)
 {
 	int	*col_row[4];
 	int	**grid;
-	t_bool success;
-	int index;
-	
+	t_bool	success;
+	int	index;
+
 	col_row[UP] = create_col_row(str, g_size * UP);
 	col_row[DOWN] = create_col_row(str, g_size * DOWN);
 	col_row[LEFT] = create_col_row(str, g_size * LEFT);
@@ -411,13 +411,13 @@ t_bool	solve(char *str)
 	return (success);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_bool	error;
 	int		nbr_count;
 	
 	error = (argc != 2);
-	if(!error)
+	if (!error)
 	{
 		nbr_count = count_numbers(argv[1]);
 		g_size = nbr_count / 4;
