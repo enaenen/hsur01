@@ -209,7 +209,7 @@ t_bool	find_zero(int *arr)
 	return (false);
 }
 
-int	*setarray(int **grid, int *axis)
+int	*set_array(int **grid, int *axis)
 {
 	int	*array;
 	int	index;
@@ -286,7 +286,7 @@ t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 	t_bool	row_has_zero;
 	t_bool	col_has_zero;
 
-	col_array = setarray(grid, axis);
+	col_array = set_array(grid, axis);
 	row_has_zero = find_zero(grid[axis[0]]);
 	col_has_zero = find_zero(col_array);
 	free(col_array);
