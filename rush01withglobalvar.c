@@ -225,10 +225,10 @@ int	*setarray(int **grid, int *axis)
 
 t_bool	check_row(int **grid, int *axis, int *col_row[4], int direction)
 {
-	int column;
-	int seen;
-	int memory;
-	int current;
+	int	column;
+	int	seen;
+	int	memory;
+	int	current;
 	
 	column = 0;
 	seen = 0;
@@ -309,8 +309,8 @@ t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 
 t_bool	test(int **grid, int *axis, int guess, int *col_row[4])
 {
-	t_bool test_duplicate;
-	t_bool test_valid;
+	t_bool	test_duplicate;
+	t_bool	test_valid;
 
 	test_duplicate = has_duplicate(grid, axis, guess);
 	test_valid = is_valid(grid, axis, col_row);
@@ -320,8 +320,8 @@ t_bool	test(int **grid, int *axis, int guess, int *col_row[4])
 
 t_bool	backtracking(int **grid, int *col_row[4])
 {
-	int *empty;
-	int guess;
+	int	*empty;
+	int	guess;
 
 	guess = 1;
 	empty = is_empty(grid);
@@ -403,7 +403,7 @@ t_bool	solve(char *str)
 int	main(int argc, char **argv)
 {
 	t_bool	error;
-	int		nbr_count;
+	int	nbr_count;
 	
 	error = (argc != 2);
 	if (!error)
