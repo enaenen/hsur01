@@ -283,21 +283,21 @@ t_bool	check_col(int **grid, int *axis, int *col_row[4], int direction)
 t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 {
 	int	*col_array;
-	t_bool	row_has_zero;
 	t_bool	col_has_zero;
+	t_bool	row_has_zero;
 
 	col_array = set_array(grid, axis);
-	row_has_zero = find_zero(grid[axis[0]]);
-	col_has_zero = find_zero(col_array);
+	col_has_zero = find_zero(grid[axis[0]]);
+	row_has_zero = find_zero(col_array);
 	free(col_array);
-	if (row_has_zero && col_has_zero)
+	if (col_has_zero && row_has_zero)
 		return (true);
-	if (!row_has_zero && col_has_zero)
+	if (!col_has_zero && row_has_zero)
 	{
 		return (check_row(grid, axis, col_row, L_T_R)
 		&& check_row(grid, axis, col_row, R_T_L));
 	}
-	if (row_has_zero && !col_has_zero)
+	if (col_has_zero && !row_has_zero)
 		return (check_col(grid, axis, col_row, U_T_D)
 		&& check_col(grid, axis, col_row, D_T_U));
 	return (check_row(grid, axis, col_row, L_T_R)
