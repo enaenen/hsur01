@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rush01withglobalvar.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: wchae <wchae@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/05 19:51:24 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/05 20:09:47 by wchae            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <unistd.h>
 #include <stdlib.h>
 #define ERROR "Error\n"
@@ -39,23 +27,23 @@ void	ft_putchar(char c)
 
 void	ft_putstr(char *str)
 {
-	while(*str)
+	while (*str)
 		write(1, str++, 1);
 }
 
 t_bool	is_number(char c)
 {
-	if(c >= '0' && c <= '9')
+	if (c >= '0' && c <= '9')
 		return (true);
 	return (false);
 }
 
-int		count_numbers(char *str)
+int	count_numbers(char *str)
 {
-	int count;
+	int	count;
 	
 	count = 0;
-	while(*str)
+	while (*str)
 	{
 		if (is_number(*str))
 			count++;
@@ -66,21 +54,21 @@ int		count_numbers(char *str)
 
 t_bool	is_valid_space(char *c)
 {
-	if (is_number(*(c-1)) && *c == ' ' && is_number(*(c+1)))
+	if (is_number(*(c - 1)) && *c == ' ' && is_number(*(c + 1)))
 		return (true);
 	return (false);
 }
 
 t_bool	input_validation(char *str, int nbr_count)
 {
-	int index;
-	
+	int	index;
+
 	if (nbr_count != g_size * 4 || g_size < 3 || g_size > 9)
 		return (false);
 	index = 1;
-	while(str[index])
+	while (str[index])
 	{
-		if(!is_valid_space(&str[index]))
+		if (!is_valid_space(&str[index]))
 			return (false);
 		index += 2;
 	}
@@ -110,14 +98,14 @@ int	**create_grid()
 	return (grid);
 }
 
-int		*create_col_row(char *str, int offset)
+int	*create_col_row(char *str, int offset)
 {
-	int index;
-	int *col_row;
+	int	index;
+	int	*col_row;
 	
 	col_row = (int *)malloc((g_size + 1) * sizeof(int));
 	index = 0;
-	while(index < g_size && *str)
+	while (index < g_size && *str)
 	{
 		if (is_number(*str))
 		{
@@ -154,18 +142,18 @@ t_bool	validate_col_row(int *col_row[4])
 
 int	*is_empty(int **grid)
 {
-	int row;
-	int col;
-	int *axis;
+	int	row;
+	int	col;
+	int	*axis;
 	
 	axis = (int *)malloc(2 * sizeof(int));
 	axis[0] = -1;
 	axis[1] = -1;
 	row = 0;
-	while(row < g_size)
+	while (row < g_size)
 	{
 		col = 0;
-		while(col < g_size)
+		while (col < g_size)
 		{
 			if (grid[row][col] == 0)
 			{
@@ -182,12 +170,12 @@ int	*is_empty(int **grid)
 
 t_bool	has_duplicate(int **grid, int *axis, int guess)
 {
-	int col;
-	int row;
+	int	col;
+	int	row;
 	
 	col = -1;
 	row = -1;
-	while(col < g_size)
+	while (col < g_size)
 	{
 		col++;
 		if (col == axis[1] || col == g_size)
@@ -195,7 +183,7 @@ t_bool	has_duplicate(int **grid, int *axis, int guess)
 		if (grid[axis[0]][col] == guess)
 			return (true);
 	}
-	while(row < g_size)
+	while (row < g_size)
 	{
 		row++;
 		if (row == axis[0] || row == g_size)
@@ -208,7 +196,7 @@ t_bool	has_duplicate(int **grid, int *axis, int guess)
 
 t_bool	find_zero(int *arr)
 {
-	int index;
+	int	index;
 	
 	index = 0;
 	while (index < g_size)
@@ -222,9 +210,9 @@ t_bool	find_zero(int *arr)
 
 int	*setarray(int **grid, int *axis)
 {
-	int		*array;
-	int 	index;
-	
+	int	*array;
+	int	index;
+
 	index = 0;
 	array = (int *)malloc((g_size + 1) * sizeof(int));
 	while (index < g_size)
@@ -245,7 +233,7 @@ t_bool	check_row(int **grid, int *axis, int *col_row[4], int direction)
 	column = 0;
 	seen = 0;
 	memory = -1;
-	while(column < g_size)
+	while (column < g_size)
 	{
 		current = grid[axis[0]][column];
 		if (direction == R_T_L)
@@ -265,15 +253,15 @@ t_bool	check_row(int **grid, int *axis, int *col_row[4], int direction)
 
 t_bool	check_col(int **grid, int *axis, int *col_row[4], int direction)
 {
-	int row;
-	int seen;
-	int memory;
-	int current;
+	int	row;
+	int	seen;
+	int	memory;
+	int	current;
 
 	row = 0;
 	seen = 0;
 	memory = -1;
-	while(row < g_size)
+	while (row < g_size)
 	{
 		current = grid[row][axis[1]];
 		if (direction == D_T_U)
@@ -293,23 +281,24 @@ t_bool	check_col(int **grid, int *axis, int *col_row[4], int direction)
 
 t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 {
-	int		*colarray;
+	int	*colarray;
 	t_bool	row_has_zero;
 	t_bool	col_has_zero;
-	int i = 0;
-	
+	int	i;
+
+	i = 0;
 	colarray = setarray(grid, axis);
 	row_has_zero = find_zero(grid[axis[0]]);
 	col_has_zero = find_zero(colarray);
 	free(colarray);
 	if (row_has_zero && col_has_zero)
 		return (true);
-	if(!row_has_zero && col_has_zero)
+	if (!row_has_zero && col_has_zero)
 	{
 		return (check_row(grid, axis, col_row, L_T_R)
 		&& check_row(grid, axis, col_row, R_T_L));
 	}
-	if(row_has_zero && !col_has_zero)
+	if (row_has_zero && !col_has_zero)
 		return (check_col(grid, axis, col_row, U_T_D)
 		&& check_col(grid, axis, col_row, D_T_U));
 	return (check_row(grid, axis, col_row, L_T_R)
@@ -338,7 +327,7 @@ t_bool	backtracking(int **grid, int *col_row[4])
 	empty = is_empty(grid);
 	if (empty[0] == -1)
 		return (true);
-	while(guess <= g_size)
+	while (guess <= g_size)
 	{
 		grid[empty[ROW]][empty[COL]] = guess;
 		if (test(grid, empty, guess, col_row))
@@ -355,7 +344,7 @@ t_bool	backtracking(int **grid, int *col_row[4])
 	return (false);
 }
 
-void	print_grid(int	**grid)
+void	print_grid(int **grid)
 {
 	int	row;
 	int	col;
