@@ -20,6 +20,7 @@ typedef enum
 	false = 0
 }	t_bool;
 
+t_bool	backtracking(int **grid, int *col_row[4]);
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
@@ -284,9 +285,7 @@ t_bool	is_valid(int **grid, int *axis, int *col_row[4])
 	int	*colarray;
 	t_bool	row_has_zero;
 	t_bool	col_has_zero;
-	int	i;
 
-	i = 0;
 	colarray = setarray(grid, axis);
 	row_has_zero = find_zero(grid[axis[0]]);
 	col_has_zero = find_zero(colarray);
@@ -317,6 +316,28 @@ t_bool	test(int **grid, int *axis, int guess, int *col_row[4])
 
 	return (!test_duplicate && test_valid);
 }
+t_bool	recursive(int **grid, int *empty, int guess, int *col_row[4])
+{
+	while (guess <= g_size)
+	{
+		grid[empty[ROW]][empty[COL]] = guess;
+		if (test(grid, empty, guess, col_row))
+		{
+			if (backtracking(grid, col_row))
+			{
+				free(empty);
+				return (true);
+			}
+			else
+				grid[empty[ROW]][empty[COL]] = 0;
+		}
+		else
+			grid[empty[ROW]][empty[COL]] = 0;
+		guess++;
+	}
+	free(empty);
+	return (false);
+}
 
 t_bool	backtracking(int **grid, int *col_row[4])
 {
@@ -327,21 +348,7 @@ t_bool	backtracking(int **grid, int *col_row[4])
 	empty = is_empty(grid);
 	if (empty[0] == -1)
 		return (true);
-	while (guess <= g_size)
-	{
-		grid[empty[ROW]][empty[COL]] = guess;
-		if (test(grid, empty, guess, col_row))
-		{
-			if (backtracking(grid, col_row))
-				return (true);
-			else
-				grid[empty[ROW]][empty[COL]] = 0;
-		}
-		else
-			grid[empty[ROW]][empty[COL]] = 0;
-		guess++;
-	}
-	return (false);
+	return (recursive(grid, empty, guess, col_row));
 }
 
 void	print_grid(int **grid)
@@ -384,7 +391,6 @@ t_bool	solve(char *str)
 	int	*col_row[4];
 	int	**grid;
 	t_bool	success;
-	int	index;
 
 	col_row[UP] = create_col_row(str, g_size * UP);
 	col_row[DOWN] = create_col_row(str, g_size * DOWN);
