@@ -6,7 +6,7 @@
 /*   By: wchae <wchae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 19:51:24 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/05 19:51:37 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/05 19:55:29 by wchae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,21 +411,19 @@ t_bool	solve(char *str)
 	return (success);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	int argc = 2;
-	char *argv = "6 5 4 3 2 1 1 2 2 2 2 2 6 5 4 3 2 1 1 2 2 2 2 2";
 	t_bool	error;
 	int		nbr_count;
 	
 	error = (argc != 2);
 	if(!error)
 	{
-		nbr_count = count_numbers(argv);
+		nbr_count = count_numbers(argv[1]);
 		g_size = nbr_count / 4;
-		error = !input_validation(argv,nbr_count);
+		error = !input_validation(argv[1], nbr_count);
 		if (!error)
-			error = !solve(argv);
+			error = !solve(argv[1]);
 	}
 	if (error)
 	{
