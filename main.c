@@ -6,19 +6,19 @@
 /*   By: wchae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:54:16 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/06 16:56:07 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/06 17:02:22 by wchae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#define ERROR "Error\n"
 #include "boolean.h"
 #include "input_validation.h"
 #include "input_process.h"
 #include "solve_validation.h"
 #include "print_grid.h"
 #include "solve_backtrack.h"
+#define ERROR "Error\n"
 
 int		g_size;
 
