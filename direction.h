@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_process.h                                    :+:      :+:    :+:   */
+/*   direction.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wchae <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jikim <jikim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/06 14:19:19 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/06 15:37:26 by jikim            ###   ########.fr       */
+/*   Created: 2021/03/06 15:35:35 by jikim             #+#    #+#             */
+/*   Updated: 2021/03/06 15:37:03 by jikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PROCESS_H
-# define INPUT_PROCESS_H
+#ifndef DIRECTION_H
+# define DIRECTION_H
 
-# include "boolean.h"
-
-int		*create_col_row(char *str, int offset);
-
-int		**create_grid(void);
-
-t_bool	validate_col_row(int *col_row[4]);
+#define UP 0
+#define DOWN 1
+#define LEFT 2
+#define RIGHT 3
 
 #endif

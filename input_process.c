@@ -6,13 +6,14 @@
 /*   By: wchae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:42:34 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/06 14:59:53 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/06 15:37:53 by jikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "boolean.h"
 #include "input_validation.h"
+#include "direction.h"
 
 extern int	g_size;
 
