@@ -6,11 +6,11 @@
 /*   By: wchae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:06:03 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/06 16:23:24 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/06 16:44:15 by wchae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef "SOLVE_BACKTRACK_H"
+#ifndef SOLVE_BACKTRACK_H
 # define SOLVE_BACKTRACK_H
 
 # include "boolean.h"
@@ -24,6 +24,6 @@ t_bool		is_valid(int **grid, int *axis, int *col_row[4]);
 
 t_bool		test(int **grid, int *axis, int guess, int *col_row[4]);
 
-_bool		backtracking(int **grid, int *col_row[4]);
+t_bool		backtracking(int **grid, int *col_row[4]);
 
 #endif

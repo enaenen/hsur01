@@ -6,12 +6,14 @@
 /*   By: wchae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 16:03:33 by wchae             #+#    #+#             */
-/*   Updated: 2021/03/06 16:19:53 by wchae            ###   ########.fr       */
+/*   Updated: 2021/03/06 16:45:43 by wchae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "direction.h"
 #include "boolean.h"
+#include "solve_validation.h"
 
 extern int	g_size;
 
@@ -85,8 +87,10 @@ t_bool		is_valid(int **grid, int *axis, int *col_row[4])
 		&& check_row(grid, axis, col_row, R_T_L));
 	}
 	if (row_has_zero && !col_has_zero)
+	{
 		return (check_col(grid, axis, col_row, U_T_D)
 		&& check_col(grid, axis, col_row, D_T_U));
+	}
 	return (check_row(grid, axis, col_row, L_T_R)
 	&& check_row(grid, axis, col_row, R_T_L)
 	&& check_col(grid, axis, col_row, U_T_D)
