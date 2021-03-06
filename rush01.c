@@ -12,139 +12,18 @@
 #define U_T_D 1
 #define D_T_U -1
 
+#include "boolean.h"
+#include "input_validation.h"
+#include "input_process.h"
+#include "print_grid.h"
+
 int	g_size;
-
-typedef enum
-{
-	true = 1,
-	false = 0
-}	t_bool;
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
-{
-	while (*str)
-		write(1, str++, 1);
-}
-
-t_bool	is_number(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (true);
-	return (false);
-}
-
-int	count_numbers(char *str)
-{
-	int	count;
-	
-	count = 0;
-	while (*str)
-	{
-		if (is_number(*str))
-			count++;
-		str++;
-	}
-	return (count);
-}
-
-t_bool	is_valid_space(char *c)
-{
-	if (is_number(*(c - 1)) && *c == ' ' && is_number(*(c + 1)))
-		return (true);
-	return (false);
-}
-
-t_bool	input_validation(char *str, int nbr_count)
-{
-	int	index;
-
-	if (nbr_count != g_size * 4 || g_size < 3 || g_size > 9)
-		return (false);
-	index = 1;
-	while (str[index])
-	{
-		if (!is_valid_space(&str[index]))
-			return (false);
-		index += 2;
-	}
-	return (true);
-}
-
-int	**create_grid(void)
-{
-	int	row;
-	int	col;
-	int	**grid;
-	
-	grid = (int **)malloc((g_size + 1) * sizeof(int *));
-	row = 0;
-	while (row < g_size)
-	{
-		grid[row] = (int *)malloc((g_size + 1) * sizeof(int));
-		col = 0;
-		while (col <= g_size)
-		{
-			grid[row][col] = 0;
-			col++;
-		}
-		row++;
-	}
-	grid[g_size] = 0;
-	return (grid);
-}
-
-int	*create_col_row(char *str, int offset)
-{
-	int	index;
-	int	*col_row;
-	
-	col_row = (int *)malloc((g_size + 1) * sizeof(int));
-	index = 0;
-	while (index < g_size && *str)
-	{
-		if (is_number(*str))
-		{
-			if (offset)
-				offset--;
-			else
-			{
-				col_row[index] = *str - '0';
-				index++;
-			}
-		}
-		str++;
-	}
-	return (col_row);
-}
-
-t_bool	validate_col_row(int *col_row[4])
-{
-	int	max;
-	int	index;
-
-	max = g_size + 1;
-	index = 0;
-	while (index < g_size)
-	{
-		if ((col_row[UP][index] + col_row[DOWN][index]) > max)
-			return (false);
-		if ((col_row[LEFT][index] + col_row[RIGHT][index]) > max)
-			return (false);
-		index++;
-	}
-	return (true);
-}
 
 void	is_empty(int **grid, int *axis)
 {
 	int	row;
 	int	col;
-	
+
 	axis[0] = -1;
 	axis[1] = -1;
 	row = 0;
@@ -212,7 +91,7 @@ int	*set_array(int **grid, int *axis)
 	int	index;
 
 	index = 0;
-	array = (int *)malloc((g_size + 1) * sizeof(int));
+	array = (int *)malloc((g_size) * sizeof(int));
 	while (index < g_size)
 	{
 		array[index] = grid[index][axis[1]];
@@ -340,29 +219,7 @@ t_bool	backtracking(int **grid, int *col_row[4])
 	return (false);
 }
 
-void	print_grid(int **grid)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < g_size)
-	{
-		col = 0;
-		while (col < g_size)
-		{
-			ft_putchar((char)(grid[row][col] + '0'));
-			if (col != g_size - 1)
-				ft_putstr(" ");
-			col++;
-		}
-		if (row != g_size)
-			ft_putstr("\n");
-		row++;
-	}
-}
-
-void	free_grid(int **grid)
+void	free_arr(int **grid)
 {
 	int	index;
 
@@ -372,7 +229,6 @@ void	free_grid(int **grid)
 		free(grid[index]);
 		index++;
 	}
-	free(grid);
 }
 
 t_bool	solve(char *str)
@@ -391,7 +247,8 @@ t_bool	solve(char *str)
 	success = backtracking(grid, col_row);
 	if (success)
 		print_grid(grid);
-	free_grid(grid);
+	free_arr(grid);
+	free_arr(col_row);
 	return (success);
 }
 

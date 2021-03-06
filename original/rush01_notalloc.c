@@ -20,7 +20,6 @@ typedef enum
 	false = 0
 }	t_bool;
 
-t_bool	backtracking(int **grid, int *col_row[4]);
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
@@ -82,11 +81,11 @@ int	**create_grid(void)
 	int	col;
 	int	**grid;
 	
-	grid = (int **)malloc((g_size + 1) * sizeof(int *));
+	grid = (int **)malloc((g_size) * sizeof(int *));
 	row = 0;
 	while (row < g_size)
 	{
-		grid[row] = (int *)malloc((g_size + 1) * sizeof(int));
+		grid[row] = (int *)malloc((g_size) * sizeof(int));
 		col = 0;
 		while (col <= g_size)
 		{
@@ -104,7 +103,7 @@ int	*create_col_row(char *str, int offset)
 	int	index;
 	int	*col_row;
 	
-	col_row = (int *)malloc((g_size + 1) * sizeof(int));
+	col_row = (int *)malloc((g_size) * sizeof(int));
 	index = 0;
 	while (index < g_size && *str)
 	{
@@ -141,13 +140,11 @@ t_bool	validate_col_row(int *col_row[4])
 	return (true);
 }
 
-int	*is_empty(int **grid)
+void	is_empty(int **grid, int *axis)
 {
 	int	row;
 	int	col;
-	int	*axis;
 	
-	axis = (int *)malloc(2 * sizeof(int));
 	axis[0] = -1;
 	axis[1] = -1;
 	row = 0;
@@ -160,13 +157,13 @@ int	*is_empty(int **grid)
 			{
 				axis[0] = row;
 				axis[1] = col;
-				return (axis);
+				return ;
 			}
 			col++;
 		}
 		row++;
 	}
-	return (axis);
+	return ;
 }
 
 t_bool	has_duplicate(int **grid, int *axis, int guess)
@@ -215,7 +212,7 @@ int	*set_array(int **grid, int *axis)
 	int	index;
 
 	index = 0;
-	array = (int *)malloc((g_size + 1) * sizeof(int));
+	array = (int *)malloc((g_size) * sizeof(int));
 	while (index < g_size)
 	{
 		array[index] = grid[index][axis[1]];
@@ -316,18 +313,23 @@ t_bool	test(int **grid, int *axis, int guess, int *col_row[4])
 
 	return (!test_duplicate && test_valid);
 }
-t_bool	recursive(int **grid, int *empty, int guess, int *col_row[4])
+
+t_bool	backtracking(int **grid, int *col_row[4])
 {
+	int	empty[2];
+	int	guess;
+
+	guess = 1;
+	is_empty(grid, empty);
+	if (empty[0] == -1)
+		return (true);
 	while (guess <= g_size)
 	{
 		grid[empty[ROW]][empty[COL]] = guess;
 		if (test(grid, empty, guess, col_row))
 		{
 			if (backtracking(grid, col_row))
-			{
-				free(empty);
 				return (true);
-			}
 			else
 				grid[empty[ROW]][empty[COL]] = 0;
 		}
@@ -335,20 +337,7 @@ t_bool	recursive(int **grid, int *empty, int guess, int *col_row[4])
 			grid[empty[ROW]][empty[COL]] = 0;
 		guess++;
 	}
-	free(empty);
 	return (false);
-}
-
-t_bool	backtracking(int **grid, int *col_row[4])
-{
-	int	*empty;
-	int	guess;
-
-	guess = 1;
-	empty = is_empty(grid);
-	if (empty[0] == -1)
-		return (true);
-	return (recursive(grid, empty, guess, col_row));
 }
 
 void	print_grid(int **grid)
@@ -373,7 +362,7 @@ void	print_grid(int **grid)
 	}
 }
 
-void	free_grid(int **grid)
+void	free_arr(int **grid)
 {
 	int	index;
 
@@ -383,10 +372,9 @@ void	free_grid(int **grid)
 		free(grid[index]);
 		index++;
 	}
-	free(grid);
 }
 
-t_bool	solve(char *str)
+t_bool	solve(char *strl
 {
 	int	*col_row[4];
 	int	**grid;
@@ -402,7 +390,8 @@ t_bool	solve(char *str)
 	success = backtracking(grid, col_row);
 	if (success)
 		print_grid(grid);
-	free_grid(grid);
+	free_arr(grid);
+	free_arr(col_row);
 	return (success);
 }
 
